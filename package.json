@@ -1,33 +1,41 @@
 {
-  "name": "qini-dashboard",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "prettier": "prettier --write \"**/*.{ts,tsx,json,scss}\"",
-    "eslint": "eslint --quiet \"src/**/*.{ts,tsx,json}\"",
-    "lint-staged": "lint-staged",
-    "prepare": "husky install"
-  },
-  "dependencies": {
-    "next": "14.0.4",
-    "react": "^18",
-    "react-dom": "^18"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.4",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.1.1",
-    "typescript": "^5"
-  }
+    "name": "qini-dashboard",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "prettier": "prettier --write \"**/*.{ts,tsx,json,scss}\"",
+        "eslint": "tsc --noEmit && eslint --quiet \"src/**/*.{ts,tsx,json}\"",
+        "lint-staged": "lint-staged",
+        "prepare": "husky install"
+    },
+    "lint-staged": {
+        "src/**/*.{ts,tsx,json,scss}": [
+            "yarn prettier",
+            "yarn eslint",
+            "git add ."
+        ]
+    },
+    "dependencies": {
+        "next": "14.0.4",
+        "react": "^18",
+        "react-dom": "^18"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "@typescript-eslint/eslint-plugin": "^6.17.0",
+        "@typescript-eslint/parser": "^6.17.0",
+        "eslint": "^8",
+        "eslint-config-next": "14.0.4",
+        "eslint-plugin-json": "^3.1.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^15.2.0",
+        "prettier": "^3.1.1",
+        "typescript": "^5"
+    }
 }
