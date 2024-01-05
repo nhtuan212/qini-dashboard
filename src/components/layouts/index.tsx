@@ -1,10 +1,26 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import { Box } from "@mui/material";
+import { useProfileStore } from "@/store/useProfileStore";
+import { ProfileProps } from "@/types/profileProps";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+    session,
+    children,
+}: {
+    session: ProfileProps;
+    children: React.ReactNode;
+}) {
+    //** Zustand */
+    const { getProfile } = useProfileStore();
+
+    //** Hooks */
+    useEffect(() => {
+        getProfile(session);
+    }, [getProfile, session]);
+
     return (
         <Box sx={{ display: "flex" }}>
             <Navbar />
