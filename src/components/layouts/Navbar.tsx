@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavbarSlice } from "@/store/useNavbarSlice";
+import { useNavbarStore } from "@/store/useNavbarStore";
 import { ChevronLeft, Menu } from "@mui/icons-material";
 import {
     Box,
@@ -17,7 +17,7 @@ import { menu } from "@/config/menu";
 
 export default function Navbar() {
     //** Zustand */
-    const { isExpanse, expanse } = useNavbarSlice();
+    const { isExpanse, expanse } = useNavbarStore();
 
     return (
         <Drawer
