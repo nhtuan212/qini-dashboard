@@ -7,4 +7,5 @@ export const TEXT = {
     PASSWORD: "Password",
     REMEMBER_ME: "Remember me",
     FORGOT_PASSWORD: "Forgot password",
+    IS_REQUIRED: "is required",
 };

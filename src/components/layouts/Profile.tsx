@@ -84,7 +84,13 @@ export default function Profile() {
                     </ListItemIcon>
                     {TEXT.SETTING}
                 </MenuItem>
-                <MenuItem onClick={() => signOut()}>
+                <MenuItem
+                    onClick={async () =>
+                        await signOut().then(() => {
+                            localStorage.clear();
+                        })
+                    }
+                >
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>
