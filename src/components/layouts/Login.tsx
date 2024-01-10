@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import Input from "../Input";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import {
@@ -11,7 +12,6 @@ import {
     FormControlLabel,
     Grid,
     Link,
-    TextField,
     Typography,
 } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
@@ -23,23 +23,27 @@ export default function Login() {
     const searchParams = useSearchParams();
 
     //** States */
-    const [error, setError] = React.useState<string>("");
+    const [error, setError] = useState<string>("");
+    const [errorUsername, setErrorUsername] = useState<boolean>(false);
+    const [errorPassword, setErrorPassword] = useState<boolean>(false);
 
     //** Functions */
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const email = data.get("email");
+        const username = data.get("username");
         const password = data.get("password");
 
-        if (!email || !password) {
-            return setError("All fields are necessary");
+        if (!username || !password) {
+            !username && setErrorUsername(true);
+            !password && setErrorPassword(true);
+            return false;
         }
 
         try {
             await signIn("credentials", {
-                email,
+                username,
                 password,
                 // redirect: false,
                 callbackUrl: searchParams.get("callbackUrl") || ROUTE.HOME,
@@ -76,17 +80,24 @@ export default function Login() {
                     noValidate
                     sx={{ mt: 1 }}
                 >
-                    <TextField
+                    <Input
                         margin="normal"
                         required
                         fullWidth
-                        id={TEXT.EMAIL}
-                        name="email"
-                        label={TEXT.EMAIL}
-                        autoComplete={TEXT.EMAIL}
+                        id={TEXT.USERNAME}
+                        name="username"
+                        label={TEXT.USERNAME}
+                        autoComplete={TEXT.USERNAME}
                         autoFocus
+                        error={errorUsername}
+                        helperText={
+                            errorUsername && `Username ${TEXT.IS_REQUIRED}`
+                        }
+                        onChange={event =>
+                            setErrorUsername(!event.target.value)
+                        }
                     />
-                    <TextField
+                    <Input
                         margin="normal"
                         required
                         fullWidth
@@ -95,6 +106,13 @@ export default function Login() {
                         label={TEXT.PASSWORD}
                         type="password"
                         autoComplete="current-password"
+                        error={errorPassword}
+                        helperText={
+                            errorPassword && `Password ${TEXT.IS_REQUIRED}`
+                        }
+                        onChange={event =>
+                            setErrorPassword(!event.target.value)
+                        }
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
