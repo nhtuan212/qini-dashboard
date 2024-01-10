@@ -1,12 +1,14 @@
 import React from "react";
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
-import { getServerSession } from "next-auth";
-import Layout from "@/components/layouts";
 import AuthProvider from "./AuthProvider";
+import Layout from "@/components/layouts";
+import CustomThemeProvider from "@/theme/CustomThemeProvider";
+import { getServerSession } from "next-auth";
+import { Roboto } from "next/font/google";
 import { ProfileProps } from "@/types/profileProps";
 import { authOptions } from "@/utils/authOptions";
 import "./globals.css";
+import Loading from "@/components/Loading";
 
 const roboto = Roboto({
     weight: ["400", "700"],
@@ -28,15 +30,18 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <body className={roboto.className}>
-                <main>
-                    <AuthProvider>
-                        {session ? (
-                            <Layout session={session}>{children}</Layout>
-                        ) : (
-                            children
-                        )}
-                    </AuthProvider>
-                </main>
+                <CustomThemeProvider>
+                    <main>
+                        <Loading />
+                        <AuthProvider>
+                            {session ? (
+                                <Layout session={session}>{children}</Layout>
+                            ) : (
+                                children
+                            )}
+                        </AuthProvider>
+                    </main>
+                </CustomThemeProvider>
             </body>
         </html>
     );
