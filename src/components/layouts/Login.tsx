@@ -23,7 +23,6 @@ export default function Login() {
     const searchParams = useSearchParams();
 
     //** States */
-    const [error, setError] = useState<string>("");
     const [errorUsername, setErrorUsername] = useState<boolean>(false);
     const [errorPassword, setErrorPassword] = useState<boolean>(false);
 
@@ -36,25 +35,21 @@ export default function Login() {
         const password = data.get("password");
 
         if (!username || !password) {
-            !username && setErrorUsername(true);
-            !password && setErrorPassword(true);
+            !username && setErrorUsername(!username);
+            !password && setErrorPassword(!password);
             return false;
         }
 
-        try {
-            await signIn("credentials", {
-                username,
-                password,
-                // redirect: false,
-                callbackUrl: searchParams.get("callbackUrl") || ROUTE.HOME,
-            })
-                .then(res => res)
-                .catch(err => {
-                    setError(err.message);
-                });
-        } catch (error) {
-            console.log({ error });
-        }
+        await signIn("credentials", {
+            username,
+            password,
+            // redirect: false,
+            callbackUrl: searchParams.get("callbackUrl") || ROUTE.HOME,
+        })
+            .then(res => res)
+            .catch(() => {
+                throw new Error("Failed to Login");
+            });
     };
 
     return (
@@ -118,8 +113,6 @@ export default function Login() {
                         control={<Checkbox value="remember" color="primary" />}
                         label={TEXT.REMEMBER_ME}
                     />
-
-                    {error && <Typography>{error}</Typography>}
 
                     <Button
                         type="submit"

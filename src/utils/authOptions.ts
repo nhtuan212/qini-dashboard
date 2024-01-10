@@ -47,15 +47,23 @@ export const authOptions: NextAuthOptions = {
                     password: credentials?.password,
                 };
 
-                // const resp = await fetchData({
-                //     endpoint: API.getUser,
+                console.log({ credentialDetails });
+
+                // return await fetchData({
+                //     endpoint: "user/create",
                 //     options: {
                 //         method: "POST",
                 //         body: JSON.stringify(credentialDetails),
                 //     },
-                // });
-
-                console.log({ credentialDetails });
+                // })
+                //     .then(res => {
+                //         console.log({
+                //             res,
+                //         });
+                //     })
+                //     .catch(err => {
+                //         console.log({ err });
+                //     });
 
                 if (user) {
                     // Any object returned will be saved in `user` property of the JWT
