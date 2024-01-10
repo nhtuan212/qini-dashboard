@@ -1,7 +1,9 @@
 import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+// import { API } from "@/config/apis";
 import { ROUTE } from "@/config/routes";
+// import { fetchData } from ".";
 
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
@@ -30,7 +32,7 @@ export const authOptions: NextAuthOptions = {
                 password: { label: "Password", type: "password" },
             },
 
-            async authorize() {
+            async authorize(credentials) {
                 // You need to provide your own logic here that takes the credentials with authorize(credentials, req)
                 // Add logic here to look up the user from the credentials supplied
                 const user = {
@@ -39,6 +41,21 @@ export const authOptions: NextAuthOptions = {
                     firstName: "Hoang Tuan",
                     email: "nhtuan212@gmail.com",
                 };
+
+                const credentialDetails = {
+                    username: credentials?.username,
+                    password: credentials?.password,
+                };
+
+                // const resp = await fetchData({
+                //     endpoint: API.getUser,
+                //     options: {
+                //         method: "POST",
+                //         body: JSON.stringify(credentialDetails),
+                //     },
+                // });
+
+                console.log({ credentialDetails });
 
                 if (user) {
                     // Any object returned will be saved in `user` property of the JWT

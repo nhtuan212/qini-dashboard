@@ -34,7 +34,7 @@ export default function Profile() {
     return (
         <>
             <IconButton onClick={handleClick} sx={{ p: 0 }}>
-                <Avatar>{profile?.lastName?.charAt(0)}</Avatar>
+                <Avatar alt="" />
             </IconButton>
             <Menu
                 id="basic-menu"

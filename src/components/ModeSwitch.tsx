@@ -8,7 +8,7 @@ export default function ModeSwitch() {
     const { themeMode, setModeStore } = useThemeStore();
 
     //** State */
-    const [mode, setMode] = useState<boolean>(false);
+    const [checked, setChecked] = useState<boolean>(false);
 
     //** Styles */
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -63,13 +63,13 @@ export default function ModeSwitch() {
 
     //** Hooks */
     useEffect(() => {
-        setMode(themeMode === "light" ? false : true);
+        setChecked(themeMode === "light" ? false : true);
     }, [themeMode]);
 
     return (
         <>
             <FormControlLabel
-                control={<MaterialUISwitch sx={{ m: 1 }} checked={mode} />}
+                control={<MaterialUISwitch sx={{ m: 1 }} checked={checked} />}
                 label=""
                 onChange={(event, checked) => {
                     setModeStore(checked ? "dark" : "light");
