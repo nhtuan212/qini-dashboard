@@ -1,11 +1,12 @@
 import React from "react";
-import { People } from "@mui/icons-material";
+import { FileOpen } from "@mui/icons-material";
+import { ROUTE } from "./routes";
 import { TEXT } from "@/constants/text";
 
 export const menu = [
     {
-        url: "/",
-        label: TEXT.STAFF,
-        icon: <People />,
+        url: ROUTE.REPORT,
+        label: TEXT.REPORT,
+        icon: <FileOpen />,
     },
 ];

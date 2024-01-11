@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useNavbarStore } from "@/store/useNavbarStore";
 import { ChevronLeft, Menu } from "@mui/icons-material";
 import {
@@ -12,12 +13,26 @@ import {
     ListItemIcon,
     ListItemText,
     Tooltip,
+    useTheme,
 } from "@mui/material";
 import { menu } from "@/config/menu";
 
 export default function Navbar() {
     //** Zustand */
     const { isExpanse, expanse } = useNavbarStore();
+
+    //** Variables */
+    const router = useRouter();
+    const pathname = usePathname();
+    const theme = useTheme();
+
+    //** States */
+    const [activeRoute, setActiveRoute] = useState("");
+
+    //** Hooks */
+    useEffect(() => {
+        setActiveRoute(pathname);
+    }, [pathname]);
 
     return (
         <Drawer
@@ -54,6 +69,10 @@ export default function Navbar() {
                         key={item.label}
                         disablePadding
                         sx={{ display: "block" }}
+                        onClick={() => {
+                            setActiveRoute(item.url);
+                            router.push(item.url);
+                        }}
                     >
                         <ListItemButton
                             sx={{
@@ -61,6 +80,10 @@ export default function Navbar() {
                                 justifyContent: isExpanse
                                     ? "initial"
                                     : "center",
+
+                                ...(activeRoute === item.url && {
+                                    background: theme.palette.greyCustom,
+                                }),
                             }}
                         >
                             <ListItemIcon
