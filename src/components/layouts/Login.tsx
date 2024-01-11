@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Input from "../Input";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import {
     Avatar,
@@ -20,11 +20,13 @@ import { TEXT } from "@/constants/text";
 
 export default function Login() {
     //** Variables */
+    const router = useRouter();
     const searchParams = useSearchParams();
 
     //** States */
     const [errorUsername, setErrorUsername] = useState<boolean>(false);
     const [errorPassword, setErrorPassword] = useState<boolean>(false);
+    const [errorLogin, setErrorLogin] = useState<string>("");
 
     //** Functions */
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,16 +42,20 @@ export default function Login() {
             return false;
         }
 
-        await signIn("credentials", {
+        const login = await signIn("credentials", {
             username,
             password,
-            // redirect: false,
+            redirect: false,
             callbackUrl: searchParams.get("callbackUrl") || ROUTE.HOME,
-        })
-            .then(res => res)
-            .catch(() => {
-                throw new Error("Failed to Login");
-            });
+        });
+
+        if (login?.ok) {
+            router.push(searchParams.get("callbackUrl") || ROUTE.HOME);
+            router.refresh();
+        } else {
+            const { message } = JSON.parse(login?.error as string);
+            return setErrorLogin(message);
+        }
     };
 
     return (
@@ -113,6 +119,19 @@ export default function Login() {
                         control={<Checkbox value="remember" color="primary" />}
                         label={TEXT.REMEMBER_ME}
                     />
+
+                    {errorLogin && (
+                        <Box sx={{ textAlign: "right" }}>
+                            <Typography
+                                sx={theme => ({
+                                    fontWeight: "bold",
+                                    color: theme.palette.error.main,
+                                })}
+                            >
+                                {errorLogin}
+                            </Typography>
+                        </Box>
+                    )}
 
                     <Button
                         type="submit"

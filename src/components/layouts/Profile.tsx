@@ -31,6 +31,8 @@ export default function Profile() {
         setAnchorEl(null);
     };
 
+    console.log({ profile });
+
     return (
         <>
             <IconButton onClick={handleClick} sx={{ p: 0 }}>
@@ -75,7 +77,7 @@ export default function Profile() {
             >
                 <MenuItem onClick={handleClose}>
                     <Avatar />
-                    {`${profile?.lastName} ${profile?.firstName}`}
+                    {profile?.username}
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleClose}>

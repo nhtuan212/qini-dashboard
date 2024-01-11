@@ -8,8 +8,7 @@ interface ProfileState {
 
 export const useProfileStore = create<ProfileState>()(set => ({
     profile: {
-        lastName: "",
-        firstName: "",
+        username: "",
         email: "",
     },
     getProfile: session => set(() => ({ profile: session.user })),

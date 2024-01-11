@@ -1,3 +1,5 @@
+import { baseUrl } from "@/config/routes";
+
 export const fetchData = async ({
     endpoint,
     options,
@@ -5,9 +7,9 @@ export const fetchData = async ({
     endpoint: string | URL;
     options?: RequestInit;
 }): Promise<any> => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const url = `${baseUrl}${endpoint}`;
 
-    return await fetch(`${baseUrl}${endpoint}`, {
+    return await fetch(url, {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
