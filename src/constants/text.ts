@@ -1,5 +1,6 @@
 export const TEXT = {
     STAFF: "Staff",
+    REPORT: "Báo cáo",
     SETTING: "Setting",
     LOGIN: "Log in",
     LOGOUT: "Log out",
