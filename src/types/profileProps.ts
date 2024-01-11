@@ -1,7 +1,6 @@
 export type ProfileProps = {
     user: {
-        lastName: string;
-        firstName: string;
+        username: string;
         email: string;
     };
 };
