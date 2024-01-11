@@ -31,8 +31,6 @@ export default function Profile() {
         setAnchorEl(null);
     };
 
-    console.log({ profile });
-
     return (
         <>
             <IconButton onClick={handleClick} sx={{ p: 0 }}>
