@@ -49,13 +49,14 @@ export default function Login() {
             callbackUrl: searchParams.get("callbackUrl") || ROUTE.HOME,
         });
 
-        if (login?.ok) {
-            router.push(searchParams.get("callbackUrl") || ROUTE.HOME);
-            router.refresh();
-        } else {
+        if (!login?.ok) {
             const { message } = JSON.parse(login?.error as string);
             return setErrorLogin(message);
         }
+
+        setErrorLogin("");
+        router.push(searchParams.get("callbackUrl") || ROUTE.HOME);
+        router.refresh();
     };
 
     return (

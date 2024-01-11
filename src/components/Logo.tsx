@@ -1,11 +1,20 @@
 "use client";
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import SvgIcon from "@mui/material/SvgIcon";
+import { ROUTE } from "@/config/routes";
 
 export default function Logo() {
     return (
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Link
+            href={ROUTE.HOME}
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                color: "#fff",
+                "&:hover": { textDecoration: " none" },
+            }}
+        >
             <SvgIcon
                 xmlns="http://www.w3.org/2000/svg"
                 aria-label={`${process.env.NEXT_PUBLIC_SITE_NAME} logo`}
@@ -18,6 +27,6 @@ export default function Logo() {
             <Typography sx={{ ml: 1, fontSize: "1.5rem" }}>
                 {process.env.NEXT_PUBLIC_SITE_NAME}
             </Typography>
-        </Box>
+        </Link>
     );
 }
