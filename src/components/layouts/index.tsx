@@ -24,7 +24,7 @@ export default function Layout({
     return (
         <Box sx={{ display: "flex" }}>
             <Navbar />
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ width: "100%", flexGrow: 1 }}>
                 <Header />
                 <Box sx={{ p: 3 }}>{children}</Box>
             </Box>

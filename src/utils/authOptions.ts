@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { API } from "@/config/apis";
+import { URL } from "@/config/urls";
 import { ROUTE } from "@/config/routes";
 import { fetchData } from ".";
 
@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
                 // };
 
                 return await fetchData({
-                    endpoint: API.login,
+                    endpoint: URL.login,
                     options: {
                         method: "POST",
                         body: JSON.stringify({
